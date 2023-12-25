@@ -1,0 +1,6 @@
+host:
+  cpu: 2
+  memory: 4096
+  hostname: 'ansible-ctl'
+software:
+  box: bento/ubuntu-22.04
