@@ -1,0 +1,6 @@
+host:
+  cpu: 2
+  memory: 4096
+  hostname: 'docker'
+software:
+  box: bento/ubuntu-22.04
