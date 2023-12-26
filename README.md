@@ -1,2 +1,2 @@
-# vagrant
+# vagrants
 Vagrant collection for labs
