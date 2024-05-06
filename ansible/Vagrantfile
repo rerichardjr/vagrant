@@ -5,14 +5,15 @@ Vagrant.configure("2") do |config|
   config.vm.box = settings["software"]["box"]
   config.vm.network "public_network"
   config.vm.box_check_update = true
+  (1..3).each do |i|
+    config.vm.define settings["host#{i}"]["hostname"] do |host|
+      host.vm.hostname = settings["host#{i}"]["hostname"]
+      host.vm.provider "virtualbox" do |vb|
+        vb.cpus = settings["host#{i}"]["cpu"]
+        vb.memory = settings["host#{i}"]["memory"]
+      end
 
-  config.vm.define settings["host"]["hostname"] do |host|
-    host.vm.hostname = settings["host"]["hostname"]
-    host.vm.provider "virtualbox" do |vb|
-      vb.cpus = settings["host"]["cpu"]
-      vb.memory = settings["host"]["memory"]
+      host.vm.provision "shell", path: "scripts/#{host.vm.hostname}.sh"
     end
-
-    host.vm.provision "shell", path: "scripts/#{host.vm.hostname}.sh"
   end
 end
