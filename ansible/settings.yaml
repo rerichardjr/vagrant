@@ -1,6 +1,20 @@
-host:
-  cpu: 2
-  memory: 4096
+hosts:
+  count: 4
+host1:
+  cpu: 1
+  memory: 1024
   hostname: 'ansible-ctl'
+host2:
+  cpu: 1
+  memory: 1024
+  hostname: 'svr-1'
+host3:
+  cpu: 1
+  memory: 1024
+  hostname: 'svr-2'
+host4:
+  cpu: 1
+  memory: 1024
+  hostname: 'svr-3'
 software:
   box: bento/ubuntu-22.04
