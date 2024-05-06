@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = settings["software"]["box"]
   config.vm.network "public_network"
   config.vm.box_check_update = true
-  (1..3).each do |i|
+  (1..settings["hosts"]["count"]).each do |i|
     config.vm.define settings["host#{i}"]["hostname"] do |host|
       host.vm.hostname = settings["host#{i}"]["hostname"]
       host.vm.provider "virtualbox" do |vb|
