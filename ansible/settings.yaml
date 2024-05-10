@@ -4,17 +4,21 @@ host1:
   cpu: 1
   memory: 1024
   hostname: 'ansible-ctl'
+  ip: '192.168.50.4'
 host2:
   cpu: 1
   memory: 1024
   hostname: 'svr-1'
+  ip: '192.168.50.5'
 host3:
   cpu: 1
   memory: 1024
   hostname: 'svr-2'
+  ip: '192.168.50.6'
 host4:
   cpu: 1
   memory: 1024
   hostname: 'svr-3'
+  ip: '192.168.50.7'
 software:
   box: bento/ubuntu-22.04
