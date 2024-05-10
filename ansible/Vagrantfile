@@ -3,11 +3,11 @@ settings = YAML.load_file "settings.yaml"
 
 Vagrant.configure("2") do |config|
   config.vm.box = settings["software"]["box"]
-  config.vm.network "public_network"
   config.vm.box_check_update = true
   (1..settings["hosts"]["count"]).each do |i|
     config.vm.define settings["host#{i}"]["hostname"] do |host|
       host.vm.hostname = settings["host#{i}"]["hostname"]
+      host.vm.network :private_network, ip: settings["host#{i}"]["ip"]
       host.vm.provider "virtualbox" do |vb|
         vb.cpus = settings["host#{i}"]["cpu"]
         vb.memory = settings["host#{i}"]["memory"]
