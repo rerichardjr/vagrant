@@ -18,7 +18,7 @@ echo "kafka:$RANDOM_PW" | sudo chpasswd
 # download kafka if not already staged
 if [ ! -f /tmp/$KAFKA_INSTALLER ]; then
   echo "Kafka installer not found"
-  sudo -u kafka wget https://downloads.apache.org/kafka/${KAFKA_VERSION}/$KAFKA_INSTALLER
+  sudo -u kafka wget https://downloads.apache.org/kafka/${KAFKA_VERSION}/$KAFKA_INSTALLER -O /tmp/$KAFKA_INSTALLER
 fi
 
 # install kafka
