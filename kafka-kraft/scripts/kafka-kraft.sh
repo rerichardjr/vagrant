@@ -3,6 +3,7 @@
 set -euxo pipefail
 
 KAFKA_INSTALLER=kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz
+KAFKA_SERVICE=/etc/systemd/system/kafka.service
 
 # install java jdk
 wget -O - https://apt.corretto.aws/corretto.key | sudo gpg --dearmor -o /usr/share/keyrings/corretto-keyring.gpg && \
@@ -29,10 +30,8 @@ sudo -u kafka tar xzf /tmp/$KAFKA_INSTALLER -C /home/kafka/kafka --strip 1
 sudo -u kafka /home/kafka/kafka/bin/kafka-storage.sh format -t $(sudo -u kafka /home/kafka/kafka/bin/kafka-storage.sh random-uuid) -c /home/kafka/kafka/config/kraft/server.properties
 
 # create kafka service
-kafka_service=/etc/systemd/system/kafka.service
-
-if [ ! -f $kafka_service ]; then
-  cat > $kafka_service <<EOF
+if [ ! -f $KAFKA_SERVICE ]; then
+  cat > $KAFKA_SERVICE <<EOF
 [Service]
 Type=simple
 User=kafka
