@@ -27,7 +27,8 @@ sudo -u kafka mkdir /home/kafka/kafka
 sudo -u kafka tar xzf /tmp/$KAFKA_INSTALLER -C /home/kafka/kafka --strip 1
 
 # generate id for cluster and format storage dir
-sudo -u kafka /home/kafka/kafka/bin/kafka-storage.sh format -t $(sudo -u kafka /home/kafka/kafka/bin/kafka-storage.sh random-uuid) -c /home/kafka/kafka/config/kraft/server.properties
+KAFKA_CLUSTER_ID=$(sudo -u kafka /home/kafka/kafka/bin/kafka-storage.sh random-uuid)
+sudo -u kafka /home/kafka/kafka/bin/kafka-storage.sh format -t $KAFKA_CLUSTER_ID -c /home/kafka/kafka/config/kraft/server.properties
 
 # create kafka service
 if [ ! -f $KAFKA_SERVICE ]; then
