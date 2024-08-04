@@ -1,0 +1,1 @@
+# Kafaka in KRaft mode

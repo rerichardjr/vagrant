@@ -1,0 +1,35 @@
+require "yaml"
+settings = YAML.load_file "settings.yaml"
+
+Vagrant.configure("2") do |config|
+  config.vm.box = settings["software"]["box"]
+  config.vm.box_check_update = true
+  (1..settings["hosts"]["count"]).each do |i|
+    config.vm.define settings["host#{i}"]["hostname"] do |host|
+      host.vm.hostname = settings["host#{i}"]["hostname"]
+      host.vm.network :private_network, ip: settings["host#{i}"]["ip"]
+      host.vm.provider "virtualbox" do |vb|
+        vb.cpus = settings["host#{i}"]["cpu"]
+        vb.memory = settings["host#{i}"]["memory"]
+      end
+
+      SCALA_VERSION=settings["software"]["scala"]
+      KAFKA_VERSION=settings["software"]["kafka"]
+
+      # if exists, copy staged kafka install from installs folder
+      if File.exists?("installs/kafka_#{SCALA_VERSION}-#{KAFKA_VERSION}.tgz")
+        host.vm.provision "file", source: "installs/kafka_#{SCALA_VERSION}-#{KAFKA_VERSION}.tgz", destination: "/tmp/kafka_#{SCALA_VERSION}-#{KAFKA_VERSION}.tgz"
+      end
+
+      # configure env variables for vms
+      host.vm.provision "shell",
+        env: {
+            "SCALA_VERSION" => "#{SCALA_VERSION}",
+            "KAFKA_VERSION" => "#{KAFKA_VERSION}",
+            "NODE_ID" => "#{i}",
+            "NODE_IP" => settings["host#{i}"]["ip"]
+        },
+        path: "scripts/kafka-kraft.sh"
+    end
+  end
+end

@@ -1,0 +1,22 @@
+---
+hosts:
+  count: 3
+host1:
+  cpu: 1
+  memory: 1024
+  hostname: 'node-1'
+  ip: '192.168.50.41'
+host2:
+  cpu: 1
+  memory: 1024
+  hostname: 'node-2'
+  ip: '192.168.50.42'
+host3:
+  cpu: 1
+  memory: 1024
+  hostname: 'node-3'
+  ip: '192.168.50.43'
+software:
+  box: bento/ubuntu-22.04
+  scala: 2.13
+  kafka: 3.8.0
