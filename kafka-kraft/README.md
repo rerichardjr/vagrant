@@ -1,1 +1,1 @@
-# Kafaka in KRaft mode
+# Kafka in KRaft mode
