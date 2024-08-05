@@ -1,6 +1,9 @@
 # Ignore the .vagrant folder
 .vagrant
 
+# Ignore the installs folder
+installs/
+
 # Ignore kafka cluster id file
 kafka_cluster_id.txt
 
