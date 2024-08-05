@@ -106,4 +106,4 @@ sudo systemctl start kafka
 echo 'export PATH="$PATH:'${INSTALL_FOLDER}'/bin"' >> .bashrc
 
 echo '##############################################################'
-echo 'kafka user password is '$RANDOM_PW
+echo  ${RUN_AS_USER}' user password is '$RANDOM_PW
