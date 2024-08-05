@@ -17,7 +17,7 @@ sudo apt-get -y install java-11-amazon-corretto-jdk
 
 # populate /etc/hosts file
 for i in `seq 1 ${NODE_COUNT}`; do
-    echo "$NETWORK$((HOST_START+i)) node${i}.test.local" >> /etc/hosts
+    echo "$NETWORK$((HOST_START+i)) node${i}.$DOMAIN" >> /etc/hosts
 done
 
 # create kafka user
