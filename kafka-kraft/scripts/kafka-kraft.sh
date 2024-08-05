@@ -23,11 +23,9 @@ done
 sudo useradd ${RUN_AS_USER} -G sudo -m -s /bin/bash
 if [ ! -f $KAFKA_PASSWORD_FILE ]; then
   RANDOM_PW=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 8; echo)
-  echo $RANDOM_PW > $KAFKA_PASSWORD_FILE
-else
-  RANDOM_PW=$(cat $KAFKA_PASSWORD_FILE)
 fi
 
+RANDOM_PW=$(cat $KAFKA_PASSWORD_FILE)
 echo "$RUN_AS_USER:$RANDOM_PW" | sudo chpasswd
 
 # download kafka if not already staged
