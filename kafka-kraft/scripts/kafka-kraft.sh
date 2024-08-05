@@ -71,13 +71,9 @@ fi
 if [ $HOSTNAME == "node1" ]; then
   # if node1, create cluster id and save id so other vms can access
   sudo -u ${RUN_AS_USER} ${INSTALL_FOLDER}/bin/kafka-storage.sh random-uuid > $KAFKA_CLUSTER_ID_FILE 
-  KAFKA_CLUSTER_ID=$(cat $KAFKA_CLUSTER_ID_FILE)
-else
-  # if any other node, get cluster id from cluster file in vagrant folder
-  KAFKA_CLUSTER_ID=$(cat $KAFKA_CLUSTER_ID_FILE)
 fi
 
-# format storage dir
+KAFKA_CLUSTER_ID=$(cat $KAFKA_CLUSTER_ID_FILE)
 sudo -u ${RUN_AS_USER} ${INSTALL_FOLDER}/bin/kafka-storage.sh format -t $KAFKA_CLUSTER_ID -c ${INSTALL_FOLDER}/config/kraft/server.properties
 
 # create kafka service
