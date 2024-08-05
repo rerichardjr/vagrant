@@ -24,7 +24,7 @@ done
 sudo useradd kafka -G sudo -m -s /bin/bash
 if [ ! -f $KAFKA_PASSWORD_FILE ]; then
   RANDOM_PW=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 8; echo)
-  echo $RANDOM_PW > /vagrant/password.txt
+  echo $RANDOM_PW > $KAFKA_PASSWORD_FILE
 else
   RANDOM_PW=$(cat $KAFKA_PASSWORD_FILE)
 fi
