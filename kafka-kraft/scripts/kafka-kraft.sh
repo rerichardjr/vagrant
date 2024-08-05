@@ -76,7 +76,6 @@ if [ $HOSTNAME == "node1" ]; then
   KAFKA_CLUSTER_ID=$(cat $KAFKA_CLUSTER_ID_FILE)
 else
   # if any other node, get cluster id from cluster file in vagrant folder
-  #KAFKA_CLUSTER_ID=$(sudo -u kafka /opt/kafka/bin/kafka-cluster.sh cluster-id --bootstrap-server node1.test.local:9092 | awk '{print $3}')
   KAFKA_CLUSTER_ID=$(cat $KAFKA_CLUSTER_ID_FILE)
 fi
 
