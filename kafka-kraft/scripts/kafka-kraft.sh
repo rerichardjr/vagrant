@@ -39,7 +39,7 @@ sudo mkdir ${INSTALL_FOLDER} ${LOG_FOLDER}
 sudo chown ${RUN_AS_USER}:${RUN_AS_USER} ${INSTALL_FOLDER} ${LOG_FOLDER}
 sudo -u ${RUN_AS_USER} tar xzf /tmp/$KAFKA_INSTALLER -C ${INSTALL_FOLDER} --strip 1
 
-# create kafka server.properties in ${INSTALL_FOLDER}/config/kraft
+# create kafka server.properties
 # build list of hosts for the controller.quorum.voters configuration parameter
 for i in `seq 1 ${NODE_COUNT}`; do
   if [ $i -eq 1 ]; then
