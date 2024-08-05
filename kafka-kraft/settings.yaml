@@ -7,6 +7,10 @@ ip:
   network: '192.168.50.'
   host_start: 40
   domain: 'test.local'
+configs:
+  run_as_user: kafka
+  install_folder: /opt/kafka
+  log_folder: /var/log/kafka
 software:
   box: bento/ubuntu-22.04
   scala: 2.13
