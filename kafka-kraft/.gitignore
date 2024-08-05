@@ -1,0 +1,8 @@
+# Ignore the .vagrant folder
+.vagrant
+
+# Ignore kafka cluster id file
+kafka_cluster_id.txt
+
+# Ignore password file
+password.txt
