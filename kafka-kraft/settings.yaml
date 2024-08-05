@@ -1,21 +1,12 @@
 ---
 hosts:
   count: 3
-host1:
   cpu: 1
   memory: 1024
-  hostname: 'node-1'
-  ip: '192.168.50.41'
-host2:
-  cpu: 1
-  memory: 1024
-  hostname: 'node-2'
-  ip: '192.168.50.42'
-host3:
-  cpu: 1
-  memory: 1024
-  hostname: 'node-3'
-  ip: '192.168.50.43'
+ip:
+  network: '192.168.50.'
+  host_start: 40
+  domain: 'test.local'
 software:
   box: bento/ubuntu-22.04
   scala: 2.13
