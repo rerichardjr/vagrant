@@ -1,18 +1,23 @@
 require "yaml"
 settings = YAML.load_file "settings.yaml"
 
+NODE_COUNT = settings["hosts"]["count"]
+NETWORK = settings["ip"]["network"]
+HOST_START = settings["ip"]["host_start"]
+DOMAIN = settings["ip"]["domain"]
+
 Vagrant.configure("2") do |config|
   config.vm.box = settings["software"]["box"]
   config.vm.box_check_update = true
-  (1..settings["hosts"]["count"]).each do |i|
-    config.vm.define settings["host#{i}"]["hostname"] do |host|
-      host.vm.hostname = settings["host#{i}"]["hostname"]
-      host.vm.network :private_network, ip: settings["host#{i}"]["ip"]
+  (1..NODE_COUNT).each do |i|
+    config.vm.define "node#{i}" do |host|
+      host.vm.hostname = "node#{i}"
+      host.vm.network :private_network, ip: NETWORK + "#{HOST_START+i}"
       host.vm.provider "virtualbox" do |vb|
-        vb.cpus = settings["host#{i}"]["cpu"]
-        vb.memory = settings["host#{i}"]["memory"]
+        vb.cpus = settings["hosts"]["cpu"]
+        vb.memory = settings["hosts"]["memory"]
       end
-
+    
       SCALA_VERSION=settings["software"]["scala"]
       KAFKA_VERSION=settings["software"]["kafka"]
 
@@ -27,7 +32,10 @@ Vagrant.configure("2") do |config|
             "SCALA_VERSION" => "#{SCALA_VERSION}",
             "KAFKA_VERSION" => "#{KAFKA_VERSION}",
             "NODE_ID" => "#{i}",
-            "NODE_IP" => settings["host#{i}"]["ip"]
+            "NODE_COUNT" => NODE_COUNT,
+            "NETWORK" => NETWORK,
+            "HOST_START" => HOST_START,
+            "DOMAIN" => DOMAIN
         },
         path: "scripts/kafka-kraft.sh"
     end
