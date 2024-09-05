@@ -1,0 +1,29 @@
+require "yaml"
+
+settings = YAML.load_file "settings.yaml"
+
+HOSTNAME = settings["hosts"]["hostname"]
+NETWORK_IP = settings["network"]["ip"]
+OPENSEARCH_VERSION = settings["software"]["opensearch"]
+
+Vagrant.configure("2") do |config|
+  config.vm.box = settings["software"]["box"]
+  config.vm.box_check_update = true
+  config.vm.define HOSTNAME do |host|
+    host.vm.hostname = HOSTNAME
+    host.vm.network :private_network, ip: NETWORK_IP
+    host.vm.provider "virtualbox" do |vb|
+      vb.cpus = settings["hosts"]["cpu"]
+      vb.memory = settings["hosts"]["memory"]
+    end
+    host.vm.provision "shell",
+      env: {
+          "OPENSEARCH_VERSION" => OPENSEARCH_VERSION,
+          "HOSTNAME" => HOSTNAME,
+          "NETWORK_IP" => NETWORK_IP,
+          "DOMAIN" => settings["network"]["domain"],
+          "RUN_AS_USER" => settings["configs"]["run_as_user"],
+      },
+      path: "scripts/opensearch.sh"
+  end
+end

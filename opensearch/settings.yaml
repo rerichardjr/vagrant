@@ -1,0 +1,14 @@
+---
+hosts:
+  count: 1
+  cpu: 1
+  memory: 4096
+  hostname: opens1
+network:
+  ip: '192.168.50.51'
+  domain: 'test.local'
+configs:
+  run_as_user: opensearch
+software:
+  box: bento/ubuntu-24.04
+  opensearch: 2.16.0
